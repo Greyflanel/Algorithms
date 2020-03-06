@@ -3,7 +3,37 @@
 import argparse
 
 def find_max_profit(prices):
-  pass
+  maximum_profit = False
+  while maximum_profit == False and len(prices) >= 1:
+    max_price = max(prices)
+    min_price = min(prices)
+    min_index = prices.index(min_price)
+    max_index = prices.index(max_price)
+    max_profit = 0
+    if max_index > min_index:
+      max_profit = max_price - min_price
+      maximum_profit = True
+      return max_profit
+    if max_index < min_index and max_index != 0:
+      min_price = min(prices[:max_index])
+      max_price = prices[max_index]
+      max_profit = max_price - min_price
+      maximum_profit = True
+      return max_profit
+    if max_index < min_index and max_index == 0:
+      max_index = prices.index(max(prices[max_index + 1:len(prices)]))
+      max_price = prices[max_index]
+      min_price = min(prices[:max_index])
+      max_profit = max_price - min_price
+      maximum_profit = True
+      return max_profit
+    elif max_index < min_index:
+      max_index = prices.index(max(prices[max_index + 1:len(prices)]))
+      max_price = prices[max_index]
+      max_profit = max_price - min_price
+      maximum_profit = True
+      return max_profit
+  
 
 
 if __name__ == '__main__':
